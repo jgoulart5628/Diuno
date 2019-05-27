@@ -1,0 +1,12 @@
+drop table ped_ven_favorecido;
+Create Table ped_ven_favorecido (key_pedido_base numeric(8) not null,
+                                 item numeric(8) not null,
+                                 sequencia numeric(3) not null,
+                                 nome_favorecido varchar(100) not null,
+                                 falecido varchar(1) not null,
+                                 dt_nascimento date, 
+                                 dt_falecimento date);
+
+alter table ped_ven_favorecido add primary key (key_pedido_base, item, sequencia);
+alter table ped_ven_favorecido add foreign key (key_pedido_base, item) references ped_ven_item (key_pedido_base, item);
+

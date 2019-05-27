@@ -1,0 +1,153 @@
+<?php
+Header("Cache-control: private, no-cache");
+Header("Expires: Mon, 26 Jun 1997 05:00:00 GMT");
+// $header = Header("Pragma: no-cache");
+error_reporting(E_ALL&~(E_NOTICE|E_DEPRECATED|E_STRICT|E_WARNING));
+//  error_reporting(E_ALL);
+ini_set('date.timezone', 'America/Sao_Paulo');
+ini_set("memory_limit", -1);
+ini_set('default_charset', 'UTF-8');
+ini_set('display_errors', true);
+// $cfg = parse_ini_file("inc/imigra.ini",true);
+$programa = basename(__FILE__);
+// print_r($conver);
+include ("inc/banco_pdo_class.php");
+if (isset($_GET['banco'])) {
+	$db = new banco_dados($_GET['banco']);
+}
+$query = " alter session set current_schema=".$_GET['schema'];
+$db->banco_query($query, 'sql');
+// var_dump($db);
+//exit;
+?>
+<!DOCTYPE html>
+<html class=no-js>
+<head>
+ <meta charset=utf-8>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
+    <!--    <meta charset="iso-8859-1" -->
+ <title> Projeto Migração </title>
+	<!--[if lt IE 9]>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+ <link rel="icon" type="image/ico" href="favicon.ico">
+ <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+ <link rel="stylesheet" type="text/css" href="css/main.css">
+  <!--[if lt IE 9]>
+   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+ <script type="text/javascript" src="js/modernizr.js"></script>
+ <link rel="stylesheet" type="text/css" href="css/nucleo.css">
+</head>
+<body>
+  <form id="tela" name="tela" class="form" method="POST">
+  <div class="container-fluid">
+     <div class="text-muted centro topo"><img src="img/nucleo.gif">
+          Projeto Diuno <small> Rotinas de Migração de Bancos de Dados. </small>
+     </div>
+     <hr>
+    <div id="tab_menu" class="centro row fundo"></div>
+    <div class="row fundo">
+      <div class="col-md-12 marketing">
+      <div id="saida" class=col-lg-12>
+            <h4>Conversão Dados </h4>
+            <p>Este programa converte os dados da tabela MATER para gerar tabelas MAT  na rotina de migração de dados do GICOF</p>
+<?php $err = material();
+echo $err.'-';
+?>
+</div>
+      </div>
+    </div>
+    <div class="footer fundo rodape">
+         <span class="glyphicon glyphicon-thumbs-up"></span>&#174; Jgoulart Web
+		  	      <button class="btn btn-sm btn-warning roda" onclick="Saida('empresa_banco_new.php');  return false;">  Parametros Conexão </button>
+    </div>
+   </div>
+  </form>
+ </body>
+</html>
+<?php
+function material() {
+	global $db;
+	$query = " select * from fornec ";
+	//a where a.nr_cpf_cgc not in (select cnpj from pes_pessoa_juridica b) ";
+	$pes = $db->banco_query($query, 'array');
+	$err = 0;
+	for ($a = 0; $a < count($pes); $a++) {
+		$NR_CPF_CGC                                = $pes[$a]['NR_CPF_CGC'];
+		$TP_FAVORECIDO_D                           = $pes[$a]['TP_FAVORECIDO_D'];
+		$NM_FAVORECIDO                             = str_replace("&", "e", $pes[$a]['NM_FAVORECIDO']);
+		$TX_ENDERECO                               = $pes[$a]['TX_ENDERECO'];
+		$NR_TELEFONE                               = $pes[$a]['NR_TELEFONE'];
+		$TX_CIDADE                                 = $pes[$a]['TX_CIDADE'];
+		$NR_BANCO                                  = $pes[$a]['NR_BANCO'];
+		$NR_AGENCIA                                = $pes[$a]['NR_AGENCIA'];
+		$SG_UF                                     = $pes[$a]['SG_UF'];
+		$NR_CTA_CORRENTE                           = $pes[$a]['NR_CTA_CORRENTE'];
+		$NR_CEP                                    = $pes[$a]['NR_CEP'];
+		$NR_INSCR_MUNICIPAL                        = $pes[$a]['NR_INSCR_MUNICIPAL'];
+		$NR_INSC_ESTADUAL                          = $pes[$a]['NR_INSC_ESTADUAL'];
+		if (!$NR_INSC_ESTADUAL) {$NR_INSC_ESTADUAL = ' ';}
+		$TP_RAMO_ATIV_D                            = $pes[$a]['TP_RAMO_ATIV_D'];
+		$IN_SUSPENSAO_D                            = $pes[$a]['IN_SUSPENSAO_D'];
+		$UG_CD_UG_SUSPEN                           = $pes[$a]['UG_CD_UG_SUSPEN'];
+		$IN_COLETIVO_D                             = $pes[$a]['IN_COLETIVO_D'];
+		$IN_EVENTUAL_D                             = $pes[$a]['IN_EVENTUAL_D'];
+		$ST_ATIVO                                  = $pes[$a]['ST_ATIVO'];
+		$DT_DESATIVACAO                            = $pes[$a]['DT_DESATIVACAO'];
+		$NR_AGENCIA_DIR                            = $pes[$a]['NR_AGENCIA_DIR'];
+		$NR_BANCO_DIR                              = $pes[$a]['NR_BANCO_DIR'];
+		$NR_CTA_CORRENTE_DIR                       = $pes[$a]['NR_CTA_CORRENTE_DIR'];
+		$CD_ORIGEM                                 = $pes[$a]['CD_ORIGEM'];
+		$TP_NAT_JURIDICA                           = $pes[$a]['TP_NAT_JURIDICA'];
+		$FL_ZONAFRANCASOCIAL                       = $pes[$a]['FL_ZONAFRANCASOCIAL'];
+		$qp                                        = " SELECT ID  FROM PES_PESSOA_JURIDICA WHERE CNPJ = '$NR_CPF_CGC'
+          UNION
+                SELECT ID  FROM PES_PESSOA_FISICA WHERE CPF = '$NR_CPF_CGC' ";
+		$id_pes_pessoa   = $db->banco_query($qp, 'unico');
+		$qm              = " select id from  pes_endereco where id_pes_pessoa = $id_pes_pessoa ";
+		$id_pes_endereco = $db->banco_query($qm, 'unico');
+		$reg_fornec      = '';
+		if ($id_pes_pessoa && $id_pes_endereco) {
+			$reg_fornec = insere_fornecedor($id_pes_pessoa, $id_pes_endereco);
+			$e          = $db->banco_query($reg_fornec, 'sql');
+			if ($e == 2) {$err++;} else { $x++;}
+			//           fwrite($flogra, $reg_logradouro);
+		} else {echo ('Erro! : '.$reg_fornec.' - '.$id_pes_endereco.' - '.$id_pes_pessoa.$qp.'/'.$qm.'</p>');
+			// break;
+
+		}
+	}
+	return $err;
+}
+
+function insere_fornecedor($id_pes_pessoa, $id_pes_endereco) {
+	$sql = " insert into pes_fornecedor  (id , id_pes_pessoa, id_pes_endereco, TXT_OBSERVACAO, nr_versao, dt_criado_em, cod_usu_criado)
+       values((select nvl((max(a.id) + 1),1) from pes_fornecedor a), $id_pes_pessoa, $id_pes_endereco, null, 0, current_timestamp, 1) ";
+	//       $e = $db->banco_query($sql, 'sql', $resp);
+	return $sql;
+}
+
+/*
+Origem : FINCON_MATERIAIS
+file:///C:/2-SMFRJ-GICOF/02-Solucao/09-Migracao/DicionarioDados/StageArea/CadastroGeral/SMFRJ_GICOF_DicionarioDadosStage_CadastroGeral.html
+
+CREATE TABLE MATER (
+CD_MATERIAL NUMBER(11,0),
+DS_MATERIAL_PADR VARCHAR2(60),
+DS_MATERIAL_COMPL VARCHAR2(50),
+IN_UNIDADE CHAR(34),
+VL_MATERIAL VARCHAR2(18),
+ST_MATERIAL CHAR(7),
+TP_ITEM CHAR(2)
+);
+select REGEXP_SUBSTR(tx_endereco,'[^ ]+',1,1) from fornec
+
+select table_name  from  all_constraints
+where   r_constraint_name in
+(select   constraint_name from  all_constraints
+where   table_name='PES_PESSOA')
+ */

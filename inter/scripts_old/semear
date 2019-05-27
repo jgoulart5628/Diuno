@@ -1,0 +1,23 @@
+error_reporting(E_ALL & ~(E_NOTICE | E_DEPRECATED | E_STRICT | E_WARNING));
+ini_set("memory_limit","-1");
+ini_set('display_errors', true);
+include('../inc/banco_pdo_class.php');
+$db1 = new dataBase('ODBC_semear');
+$db2 = new dataBase('ORACLE_semear');
+$query = " select table_name   from systable where primary_root<>0 and creator=1 order by 1 ";
+$res = $db1->banco_query($query,'array');
+foreach($res as $tab)  {
+   $tabela = $tab['table_name'];
+// /* c.column_name,  */ c.base_type_str tipo 
+$qq = " select  distinct   c.*  from systabcol c 
+                    key join systab t on t.table_id=c.table_id 
+                 where t.table_name='$tabela' ";
+$tabs = $db1->banco_query($qq,'array');
+// print_r($tabs[0][8]);
+// print_r($tabs[0][9]);
+for ($a = 0; $a < count($tabs); $a++)  {
+     if ($tabs[$a][9] === 'autoincrement')  {
+         echo $tabela.'-'.$tabs[$a][8].'-'.$tabs[$a][9].'</br>';
+     }
+}
+}

@@ -1,0 +1,4 @@
+$teste = 'Teste de array';
+$tes = explode(';', $teste);
+print_r($tes);
+echo '-'.count($tes);

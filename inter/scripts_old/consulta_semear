@@ -1,0 +1,62 @@
+ini_set("memory_limit","-1");
+ini_set('default_charset','utf-8');
+ini_set('date.timezone', 'America/Sao_Paulo');
+include("../inc/banco_pdo_class.php");
+$db = new dataBase('ORACLE_semear');
+$db1 = new dataBase('ODBC_semear');
+$qq = " select /* c.column_name,  */ c.base_type_str tipo  from systabcol c 
+                      key join systab t on t.table_id=c.table_id 
+                      where t.table_name='cb_teste' ";
+$tabs = $db1->banco_query($qq,'array');
+$query = " select * from cb_teste ";
+$res = $db1->banco_query($query, 'array');
+// echo count($res);
+ foreach($res as $a=>$b)  {
+               $ins = "insert into cb_saldo_contabil values(";
+               foreach($b as $campo=>$dado) { 
+                  if(is_numeric($campo)) {
+                     $tipo = $tabs[$campo]['tipo'];
+                     if ($campo > 0) { $ins .= ','; }
+                     if ((substr($tipo,0,3)  === 'cha') || (substr($tipo,0,3)  === 'var')) {
+				        $dado = str_replace('"',' ',$dado); 
+				        $dado = str_replace("'",' ',$dado); 
+                        $ins .= "'".$dado."'";
+                     }
+    	             if (substr($tipo,0,4)  === 'long') {
+                     	if ($tem_blob === 0)  {
+                           $ff = fopen('arq_tmp','w'); 
+                            fwrite($ff, $dado);
+                            fclose($ff);
+                           $ins .= 'varq_nfe';
+                        }   
+                 	   if ($tem_blob === 1)  {
+                          $ff1 = fopen('arq1_tmp','w'); 
+                          fwrite($ff1, $dado);
+                          fclose($ff1);
+                         $ins .= 'varq_canc';
+                        }    
+                        $tem_blob = 1; 
+                    }
+
+                     if ((substr($tipo,0,3) === 'num') || (substr($tipo,0,3) === 'int'))  {
+						 if (!$dado) {$dado = 0; }
+                         $ins .= $dado;
+                     }
+                     if (substr($tipo,0,3) === 'sma')  {
+                         $ins .= $dado;
+                     }
+                     if (substr($tipo,0,4) === 'date')  {
+                         $ins .= "TO_TIMESTAMP('$dado', 'YYYY-MM-DD')";
+                     }
+                     if (substr($tipo,0,5) === 'times')  {
+                         $ins .= "TO_TIMESTAMP('$dado', 'YYYY-MM-DD HH24:MI:SS:FF')";
+                     } else {
+                       if (substr($tipo,0,4) === 'time')  {
+                         $ins .= "TO_TIMESTAMP('$dado', 'HH24:MI:SS.FF')";
+                       }
+                     }  
+             }
+              $ins .= ')';
+       $e = $db->banco_query($ins,'sql');
+     }
+}

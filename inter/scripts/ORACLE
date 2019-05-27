@@ -1,0 +1,52 @@
+$banco = 'ORACLE_gicof';
+include '../inc/banco_pdo_class.php';
+$db = new banco_dados($banco);
+if ($db->erro)  { echo ($db->erro); }
+ else { echo ($banco.' Conectou com sucesso!'); }
+$query = " SELECT  NR_CPF_CGC as id , TX_ENDERECO as ender  FROM  fornec  where rownum < 20 ";
+// WHERE TX_ENDERECO like 'RODOVIA%' ";
+// where rownum < 20 ";  
+$res =  $db->banco_query($query,'array');
+foreach ($res as $pes) {
+   $end = $pes['ENDER'];
+ if (substr($end,0, 7) == 'RODOVIA') {
+   $tela = monta_end_rodovia($end);
+ } else {
+   $tela  = monta_end_normal($end);
+}
+   echo $pes['ID'].' - '.$tela.' - '.$pes['ENDER'].'</p>';
+}
+
+function monta_end_normal($end) {
+   $num = numero($end);
+   $end1 = substr($end,0, ($num -1));
+   $resto = substr($end, $num);
+   $fn     = strpos($resto, ' ');
+   $end2  = substr($resto, 0, $fn);
+   $bairro = substr($resto, (strlen($end2)));
+   $tela = ' Rua:  '.$end1.'  Numero:  '.$end2.' -  Bairro:  '.$bairro;
+   return $tela;
+}
+
+function monta_end_rodovia($end) {
+   $num = numero($end);
+   $end1 = substr($end,0, ($num -1));
+   $resto = substr($end, $num);
+   $fn     = strpos($resto, ' ');
+   $end2  = substr($resto, 0, $fn);
+   $bairro = substr($resto, (strlen($end2)));
+   $tela = ' Rua:  '.$end1.'  Numero:  '.$end2.' -  Bairro:  '.$bairro;
+   return $tela;
+}
+
+function numero($string) {
+$count = strlen($string);
+$i = 0;
+while( $i < $count ) {
+if( ctype_digit($string[$i]) ) {
+	return $i;
+}
+$i++;
+}
+return $i;
+}

@@ -1,0 +1,29 @@
+  .caixa   { margin: auto; width: 70%; height: 80%;  }
+  .fundo   {  background: #e4f5fc; /* Old browsers */
+               background: -moz-linear-gradient(top,  #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 51%, #2ab0ed 100%);   /* FF3.6+ */
+               background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e4f5fc), color-stop(50%,#bfe8f9), color-stop(51%,#9fd8ef), color-stop(100%,#2ab0ed)); /* Chrome,Safari4+ */
+               background: -webkit-linear-gradient(top,  #e4f5fc 0%,#bfe8f9 50%,#9fd8ef 51%,#2ab0ed 100%); /* Chrome10+,Safari5.1+ */
+               background: -o-linear-gradient(top,  #e4f5fc 0%,#bfe8f9 50%,#9fd8ef 51%,#2ab0ed 100%); /* Opera 11.10+ */
+               background: -ms-linear-gradient(top,  #e4f5fc 0%,#bfe8f9 50%,#9fd8ef 51%,#2ab0ed 100%); /* IE10+ */
+               background: linear-gradient(to bottom,  #e4f5fc 0%,#bfe8f9 50%,#9fd8ef 51%,#2ab0ed 100%); /* W3C */
+               filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4f5fc', endColorstr='#2ab0ed',GradientType=0 ); /* IE6-9 */
+               width: 95%; border: 2px outset;
+               margin-right: auto; margin-left: auto;
+	 }
+   table       { margin: 0 auto;  border-collapse: collapse; font-family: Verdana, Times, serif;  } 
+  .t_line1      {  background-color: #FFFFFF;  }
+  .t_line2      {  background-color: #CCCCCC;  }
+  .linha  { text-align: right;  }
+  .contar { background-color: red; border: 2px outset; }
+  .verde { background-color: green; border: 2px outset; }
+  ul { list-style-type: none;  margin: auto;}
+  li  { text-align: center; }
+  .padrao { width: 210px; margin-left: 5px; }
+  .centro { text-align: center; }
+  li a:hover span { width: 60%; background:#fff; visibility: visible; display: block; text-align: center;}
+  a { position: relative; text-decoration: none; }
+  a span  {  display: none;  }
+ th { text-align: center; } 
+ .roda { vertical-align: top;  float: right; }
+ caption { background-color: #e4f5fc;  font-weight: bold; }  
+ .topo { margin-top: 3px; font-size: 1.8em; font-weight: bold; }

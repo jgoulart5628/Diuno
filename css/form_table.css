@@ -1,0 +1,79 @@
+
+    fieldset.tipo_form{
+      margin: 10pt 0 0 0;
+      padding: 0;
+      border: solid 1px;
+    }
+    ol.tipo_form{
+      list-style:none;
+    }
+    li{
+      padding-left: 0;
+      padding-bottom: 5pt;
+    }
+    label{
+      float: left;
+      width: 10em;
+      margin-right: 1em;
+      font-family: Arial,Verdana,Tahoma,Helvetica,sans-serif;
+      font-size: 11pt;
+      text-align: right;
+      color: #000080 ;
+      font-weight: bold;
+      vertical-align:middle;
+    }
+
+    .tabela_dados{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    .tabela_dados td{
+      border:1px solid black;
+    }
+    .tabela_dados td.td_c{
+      text-align:center;
+      font-family: Arial,Verdana,Tahoma,Helvetica,sans-serif;
+      font-size: 10pt;
+    }
+    .tabela_dados td.td_d{
+      text-align:right;
+      font-family: Arial,Verdana,Tahoma,Helvetica,sans-serif;
+      font-size: 10pt;
+    }
+    .tabela_dados td.td_e{
+      text-align:left;
+      font-family: Arial,Verdana,Tahoma,Helvetica,sans-serif;
+      font-size: 10pt;
+    }
+    .tabela_dados thead {
+      background:#ffff81;
+      text-align:center;
+      font-size:11pt;
+      font-family: Arial,Verdana,Tahoma,Helvetica,sans-serif;
+      font-weight:bold;
+    }
+
+    .texto_e{
+      text-align:left;
+      font-family: Arial,Verdana,Tahoma,Helvetica,sans-serif;
+      font-size: 10pt;
+    }
+
+    .texto_d{
+      text-align:right;
+      font-family: Arial,Verdana,Tahoma,Helvetica,sans-serif;
+      font-size: 10pt;
+    }
+
+    .texto_c{
+      text-align:center;
+      font-family: Arial,Verdana,Tahoma,Helvetica,sans-serif;
+      font-size: 10pt;
+    }
+
+    .botao{
+      text-align:center;
+      font-family: Arial,Verdana,Tahoma,Helvetica,sans-serif;
+      font-size: 09pt;
+    }

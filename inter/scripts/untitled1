@@ -1,0 +1,15 @@
+ini_set('date.timezone', 'America/Sao_Paulo');
+//  ini_set('default_charset','iso-8859-1');
+$z = chr(0xd8);
+echo $z;
+$b = "AFONSO CAVALCANTI 00455 9 ANDAR";
+$b = preg_replace('/[[:^print:]]/', "", $b);
+//preg_replace('/[\0x00-\0x1f]/', '?', $b);
+// $b =  str_replace($z, ".", $b);
+// $xx =  "ALDEIA DAS  AGUAS REPRESENTA��ES  ";
+$x = "ASSOCIAÌ\O INDEPENDENTE";
+echo  $b;
+$x = "ASSOCIAÌO INDEPENDENTE DE BLOCOS DO CARNAVAL DE RUA DA ZONASUL, SANTA TERESA E CENTRO DA CIDADE DE SO SEBASTIO";
+$x = preg_replace('/[[:^print:]]/', "", $x);
+echo strlen($x);
+sleep(3);

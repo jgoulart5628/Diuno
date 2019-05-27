@@ -1,0 +1,6 @@
+26Sep2004 => 0.1
+	* Initial release
+
+28Nov2004 => 0.2
+	* Fixed possible incompatibilties with some PHP installations about register_globals and the use of PHP_SELF variable.
+	* Better error reporting

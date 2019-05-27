@@ -1,0 +1,7 @@
+update notaf_ent_impostos
+set perc_reducao = 100
+where perc_reducao > 100;
+
+update notaf_ent_base
+set prazo_pagto = -999
+where  prazo_pagto < -10000;

@@ -1,0 +1,45 @@
+PHP Interactive - http://www.hping.org/phpinteractive
+
+INTRODUCTION
+
+Playing with langauges like Python, Tcl or Scheme, one of the first nice things
+the programmer discovers is a powerful interactive shell where you can try in
+little time some line of code, and see the result printed on the standard
+output. Unfortunately PHP doesn't have support for such a nice feature, there
+is the command line option -a, but it's very rudimentary, and not that useful.
+Also what makes php -a not so useful is the fact that PHP is a language for web
+applications: often the program output is html code, so, doesn't it make sense
+that a PHP shell will run on the web?. This is the simple idea that PHP
+Interactive tries to develop.
+
+PHP Interactive is a simple PHP program that lets the user to write code in a
+text area (actually multiple text areas, with tabs to switch), and see the
+output of the code just pressing the update button. The scripts are persistent,
+and the program supports a raw and html output mode, in order to see the raw
+script output or to interpret it as html.
+
+INSTALLATION
+
+In order to install PHP Interactive you need to extract the
+tar.gz inside your web root and make sure that the owner of
+the web server process is able to write inside the "scripts" directory.
+
+Assuming your web server is running as 'www-data' user, you need
+to perform the following commands:
+
+  cd /your/web/root/path
+  tar xvzf phpinteractive-0.1.tar.gz
+  mv phpinteractive_0.1 phpinteractive
+  chown www-data:www-data phpinteractive/scripts
+  chmod 755 phpinteractive/scripts
+
+Now point your browser at http://localhost/phpinteractive (or what
+appropriate), and all should be running.
+
+LICENSE
+
+Copyright (C) 2004 Elisa Manara <e (at) entropika (dot) net>
+Copyright (C) 2004 Salvatore Sanfilippo <antirez (at) invece (dot) org>
+
+This software is released under the GPL license. Check the COPYING
+file for more information.

@@ -1,0 +1,3 @@
+alter table comissao_vendedor add tipo_comissao varchar(1),
+                              add valor_comissao numeric(15, 6);
+

@@ -1,0 +1,180 @@
+<?php
+   ini_set('display_errors', true);
+   /*
+     print_r(PDO::getAvailableDrivers()); 
+   try {
+        $DBH = new PDO("sqlsrv:Server=srvhost\\NUCLEO; Database= ALSB", 'ALSB', 'alsb');
+    //  $DBH = new PDO("sybase:host=$host, ;dbname=$dbname, $user, $pass");
+   }  
+   catch(PDOException $e) {
+     echo $e->getMessage();
+   }
+    /**  
+    * @classe    banco_dados  
+    * @descr     Classe de acesso ao banco de dados via PDO  
+    * @autor     Joao Goulart 
+    * @email     goulart.joao@gmail.com
+    * @data      Agosto/2014 
+    * @copyright (c) 2014 by Joao Goulart
+    */ 
+ class banco_dados {
+        //par�metros de conex�o 
+        var $cfg;
+        var $db; 
+        var $dbhost; 
+        var $dbuser; 
+        var $dbpasswd;
+         
+        //handle da conex�o 
+        var $conn; 
+
+        //variaveos ODBC 
+        var $dsn; 
+        var $driver;
+        var $uid;
+        var $pwd; 
+        //resultado das Queries 
+        var $sql; 
+        var $arr; 
+        var $banco;
+		    var $cliente;
+		    var $tipo;
+		    var $options;
+		    var $erro;
+   // construtor da classe     
+   function __construct($banco) {
+ 	  $bb = explode('_', $banco);
+      $this->tipo    = $bb[0];
+      $this->cliente = $bb[1];
+      $this->cfg = $this->busca_param($this->tipo, $this->cliente);
+      if(!is_array($this->cfg)) {  $this->erro_fatal('Erro nos Parâmetros de Conexão, verifique!' , $cli.'-'.$tp);  return $this->erro;  }
+      $this->dsn        = trim($this->cfg['dsn']);
+      $this->dbhost     = trim($this->cfg['host']);
+      $this->dbpasswd   = trim($this->cfg['pwd']);
+      $this->dbuser     = trim($this->cfg['user']);
+      $this->db         = trim($this->cfg['dbname']);
+      $this->driver     = trim($this->cfg['driver']);
+	  $this->options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true);
+      try {
+		switch ($this->tipo)   {	
+		  case 	'ORACLE':
+             $dns = "oci:dbname=$this->dbhost";
+             $this->conn = new PDO("oci:dbname=$this->db",$this->dbuser,$this->dbpasswd , $this->options);
+             break;
+          case  'ODBC':  
+ //            $dns = "odbc:Driver=".$this->driver.";Dsn=".$this->dsn.";uid=".$this->dbuser.";PWD=".$this->dbpasswd; 
+             $dns = "odbc:Dsn=".$this->dsn.";uid=".$this->dbuser.";PWD=".$this->dbpasswd; 
+             $this->conn = new PDO($dns); 
+             break;
+          case  'SYBASE':  
+             $dns = "sqlanywhere: server=".$this->dbhost."; ;uid=".$this->dbuser.";PWD=".$this->dbpasswd; 
+//             $dns = "odbc:Dsn=".$this->dsn.";uid=".$this->dbuser.";PWD=".$this->dbpasswd; 
+//             $this->conn = sasql_connect( "UID=DBA;PWD=sql" );
+             $this->conn = new PDO($dns); 
+             break;
+          case  'SQLSERVER':   
+             $dns = $this->dbhost. ';Dsn='.$this->dsn.';Database='.$this->db;
+             $this->conn = new PDO("odbc:Server=$this->dbhost;Dsn=$this->dsn;Database=$this->db", $this->dbuser, $this->dbpasswd, $this->options);
+             break;
+    		  case  'POSTGRESQL': 
+//             $this->conn = new PDO("pgsql:host=nuc-04;port=5432;dbname=familia;user=joao;password=jogola01", $this->options);
+             $this->conn = new PDO("pgsql:host=$this->dbhost;port=5432;dbname=$this->db;user=$this->dbuser;password=$this->dbpasswd");
+             break;
+          case   'MYSQL':
+//             $this->options =  array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
+             $this->conn = new PDO("mysql:host=$this->dbhost;dbname=$this->db", $this->dbuser, $this->dbpasswd , $this->options);
+             break;
+          case  'FIREBIRD':  
+      	     $dns = "firebird:dbname=$this->db"; 
+       		 $this->conn = new PDO("firebird:dbname=$this->db", $this->dbuser, $this->dbpasswd ) ; 
+       		 break;
+       	  case 	'SQLITE': 
+             if (!$this->db) { $this->db = 'inc/paarametro.sqlite'; }
+             $this->conn = new PDO("sqlite:".$this->db );
+             break;
+	    }	    
+       }   catch(Exception $e) {  $er = $e->getMessage();   return $this->erro_fatal($er, $banco);   }
+       
+   }   
+  
+
+   public function busca_param($tp, $cli)  {
+     $cc = __DIR__.'/parametro.sqlite';  
+     $lite =  new PDO('sqlite:'.$cc);
+     $sq   = " select dsn, host, dbname, user, pwd, driver from empresa_banco where id = '$cli' and dbms = '$tp' ";      
+     $sqx = $lite->query($sq);
+     $res = $sqx->fetch(PDO::FETCH_ASSOC);
+     return $res;   	
+  }
+
+
+  function banco_query($query, $mode='sql',  $tp_er='2') {
+     if(is_object($this->conn)) {
+       	 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          try  { 
+          $this->sql = $this->conn->query($query);
+//          $this->sql->execute();
+          }   catch(PDOException $e) {  
+                  $er = $e->getMessage();
+                  $msg = $this->conn->errorInfo();
+                  return $this->erro_query($msg, $er, $query,$tp_er);
+                  break; 
+              }
+         switch ($mode)   { 
+          case "sql"     :  /* $this->mydb->commit(); */  return 1; 
+          case "array"   :  $arr  = $this->sql->fetchAll(PDO::FETCH_ASSOC);  break;  
+//          case "array"   :  $arr  = $sql->fetchAll();  break;  
+          case "single"  :  $arr  = $this->sql->fetch(PDO::FETCH_ASSOC); break; 
+          case "nrows"   :  $arr  = $this->sql->fetchAll(); return count($arr); 
+          case "unico"   :  $arr  = $this->sql->fetchColumn();  break;
+        }     
+        $this->arr = $arr; 
+        return $this->arr;
+   } 
+ }
+
+  function banco_query_blob($query, $column1, $blob_data1,$column2='' ,$blob_data2='',$tela='') {
+    try{
+           $sql = $this->conn->prepare($query);
+            $sql->bindValue($column1, $blob_data1, PDO::PARAM_LOB);
+             if( $column2)    { $sql->bindValue($column2, $blob_data2, PDO::PARAM_LOB);  }
+            $sql->execute(); 
+	}   catch(Exception $e)    {  $er = $e->getMessage();   $msg = $this->conn->errorInfo();  return $this->erro_query($msg, $er, $query);   }
+    return 1;
+}
+
+ public function erro_query($msg, $er='', $query, $tp_er) {
+      $erro  = $msg[1]; 
+  	  if (!$erro) { $erro = 0; }
+      $mesg   = $msg[2]; 
+	    if ($er)  { $mesg = $er; }
+      $sql   = str_replace("'",'"',$query);
+//      $sql  = htmlspecialchars($query, ENT_NOQUOTES, "UTF-8");
+      $mesg  = str_replace('"','',$mesg);
+      $mesg  = str_replace("'",'',$mesg);
+      $data = date('Y-m-d G:i:s');
+      $arq = $this->tipo.'_'.$this->cliente;      
+      if ($tp_er === '1')  {
+         $err = $arq." \r\n"
+             .$data." \r\n"
+             .$erro." \r\n"
+             .$mesg." \r\n"
+             .$sql;
+          $err1 = '2|'.$arq.'|'.$data.'|'.$erro.'|'.$mesg.'|'.$sql;
+          $this->erro = $err;
+          return $this->erro;
+      }  else  {    
+        $db = mysqli_connect("localhost", "nucleo" , "nucleo", "nucleo") or die("Erro conexão". mysqli_error($db));
+        $db->set_charset("utf8");
+	      $que = " insert into erro_sql values(null,  '$arq', '$data' , $erro, '$mesg',  '$sql') ";
+	      $r = mysqli_query($db, $que)  or die("Erro SQL ". mysqli_error($db).'-'.$que);
+	      return 2;
+     }   
+ }
+ 
+ public function erro_fatal($er,$banco)  {
+     $erro =  ' Erro conectando DB! '.$er.  '  Conexão: '.$banco.'  ...Verifique Parametros de Conexão';
+  	 $this->erro = $erro;
+     return $this->erro;
+ }
+}    

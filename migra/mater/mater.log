@@ -1,0 +1,58 @@
+
+SQL*Loader: Release 12.2.0.1.0 - Production on Mon Apr 15 13:35:46 2019
+
+Copyright (c) 1982, 2017, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   mater.ctl
+Data File:      MATERIAIS.txt
+  Bad File:     mater.bad
+  Discard File: mater.dsc 
+ (Allow 10 discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50000
+Bind array:     64 rows, maximum of 256000 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table MATER, loaded from every logical record.
+Insert option in effect for this table: APPEND
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+CD_MATERIAL                         FIRST     *   ;       CHARACTER            
+DS_MATERIAL_PADR                     NEXT     *   ;       CHARACTER            
+DS_MATERIAL_COMPL                    NEXT     *   ;       CHARACTER            
+IN_UNIDADE                           NEXT     *   ;       CHARACTER            
+VL_MATERIAL                          NEXT     *   ;       CHARACTER            
+ST_MATERIAL                          NEXT     *   ;       CHARACTER            
+TP_ITEM                              NEXT     *   ;       CHARACTER            
+
+Record 1: Rejected - Error on table MATER, column CD_MATERIAL.
+ORA-01722: invalid number
+
+Record 62265: Rejected - Error on table MATER, column TP_ITEM.
+ORA-12899: value too large for column "EKRAMER"."MATER"."TP_ITEM" (actual: 21, maximum: 2)
+
+
+Table MATER:
+  81441 Rows successfully loaded.
+  2 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 115584 bytes(64 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:         81443
+Total logical records rejected:         2
+Total logical records discarded:        0
+
+Run began on Mon Apr 15 13:35:46 2019
+Run ended on Mon Apr 15 13:35:49 2019
+
+Elapsed time was:     00:00:02.72
+CPU time was:         00:00:00.45

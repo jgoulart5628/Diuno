@@ -1,0 +1,10 @@
+CREATE TABLE hist_produto_importados_fci (
+  codigo_material CHAR(8) NOT NULL,
+  seq_geracao numeric(3) NOT NULL,
+  data_geracao DATE NOT NULL,
+  user_modif CHAR(50) NOT NULL,
+  vlr_parcela NUMERIC(15,2) NOT NULL, 
+  vlr_total NUMERIC(15,2) NOT NULL,
+  vlr_ci NUMERIC(6,2) NOT NULL,
+  data_fci DATE,
+  num_fci CHAR(40));

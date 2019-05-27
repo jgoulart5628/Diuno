@@ -1,0 +1,49 @@
+include('../inc/banco_pdo_class.php');
+$fb = new dataBase('FIREBIRD_alsb');
+$sq = new dataBase('SQLODBC_alsb');
+$query = ' SELECT * from RDB$TRIGGERS  ';
+$res =  $fb->banco_query($query,'array');
+// $res =  $fb->banco_query($qq,'array');
+// var_dump($res);
+/*
+foreach( $res as $tab)  {
+    $nome = $tab['RDB$TRIGGER_NAME'];
+    $tabela = $tab['RDB$RELATION_NAME'];
+    $sql    =  $tab['RDB$TRIGGER_SOURCE'];
+    $coluna = nome_coluna($sql); 
+     if(substr($nome,0,4)  === 'TBI_')  {
+//      $query = " select ISNULL((max($coluna) + 1),1) from $tabela ";
+//       $xx = $sq->banco_query($query,'unico');
+       $query_seq = " create sequence SQ_$tabela    AS INT    START WITH $xx    INCREMENT BY 1    MINVALUE 1    NO MAXVALUE    NO CACHE";
+        echo  $tabela.' - '.$coluna.' - '.$xx.' - ',$query_seq.'</br>';
+ //       $e = $sq->banco_query($query_seq,'sql');
+//       if ($e !== 2)  {
+//          $qdef =  " alter table $tabela add  default (NEXT VALUE FOR SQ_$tabela) for $coluna ";
+ //          $e = $sq->banco_query($qdef,'sql');
+ //     } else { break; exit; }
+  } 
+}
+function nome_coluna($str)  {
+   $a = strpos($str, '(NEW.');
+   $a = $a + 5;
+   $x  = substr($str,$a,30);
+   $b = (strpos($x, 'IS') - 1);
+   return substr($x,0, $b);
+}
+
+/*
+/ rotina para auto increment 
+// busca o ultimo numero
+ select ISNULL((max(key_docto_base) + 1),1) from baco_guia_transito;
+ // cria sequencia
+create sequence SQ_baco_guia_transito
+    AS INT
+    START WITH 1   --- substituir pelo ultimo numero
+    INCREMENT BY 1
+    MINVALUE 1
+    NO MAXVALUE
+   NO CACHE;
+   //  adiciona sintaxe ao default da coluna
+// alter table baco_guia_transito add  default (NEXT VALUE FOR SQ_baco_guia_transito) for key_docto_base;
+//  no insert colocar 'default' para receber o valor.
+*/

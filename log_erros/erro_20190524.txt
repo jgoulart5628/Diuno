@@ -1,0 +1,4 @@
+10:18:21|http://localhost/Diuno/|::1|SQLSTATE[HY000]: General error: 1 OCIStmtExecute: ORA-00001: restric?o exclusiva (JGOULART.PES_TIPO_LOGRAD_NM_TP_LOGR_UK) violada
+ (ext\pdo_oci\oci_statement.c:157)| insert into pes_tipo_logradouro (ID, NM_TIPO_LOGRADOURO, ABREVIATURA, nr_versao, DT_CRIADO_EM, COD_USU_CRIADO) values (16, 'Avenida', 'Av', 0, current_timestamp, 1 )
+10:18:21|http://localhost/Diuno/|::1|SQLSTATE[HY000]: General error: 1 OCIStmtExecute: ORA-00001: restric?o exclusiva (JGOULART.PES_TIPO_LOGRAD_NM_TP_LOGR_UK) violada
+ (ext\pdo_oci\oci_statement.c:157)| insert into pes_tipo_logradouro (ID, NM_TIPO_LOGRADOURO, ABREVIATURA, nr_versao, DT_CRIADO_EM, COD_USU_CRIADO) values (50, 'Rua', 'R', 0, current_timestamp, 1 )

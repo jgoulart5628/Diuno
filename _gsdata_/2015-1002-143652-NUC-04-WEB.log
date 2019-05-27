@@ -1,0 +1,31 @@
+2015-10-02 14:36:52: -- Analysis Started by User
+2015-10-02 14:36:53: Esquerda: State file does not exist: D:/SCRIPTS_ORACLE/_gsdata_/_file_state_v4._gs
+2015-10-02 14:36:53: Direita: State file does not exist: //NETBOOK/SCRIPTS_ORACLE/_gsdata_/_file_state_v4._gs
+2015-10-02 14:40:54: Alterações: 20, Conflitos: 0, TempoCópia: 0, EstadoCópia: 0/2.861, Erros: 0, All: 2882
+2015-10-02 14:40:54: Left to Right: Copy File: 18 Delete File: 2 
+2015-10-02 14:40:54: ----- Análise Completada. Tempo 00:04:02, Velocidade: 1.441 arquivos/s -----
+2015-10-02 14:40:54: 
+2015-10-02 14:41:35: New _gsdata_ folder(s) created, so rescan all job folders for their ghosts
+2015-10-02 14:41:35: == Sync Started by User
+2015-10-02 14:41:37: Deletar Arquivo '//NETBOOK/SCRIPTS_ORACLE/SQL_INSERT/nucleo/movto_financeiro_lancamentos.sql'
+2015-10-02 14:41:37: Deletar Arquivo '//NETBOOK/SCRIPTS_ORACLE/SQL_INSERT/nucleo/notaf_sai_impostos.sql'
+2015-10-02 14:41:37: Criar Pasta '//NETBOOK/SCRIPTS_ORACLE/SQL_INSERT/resolpec'
+2015-10-02 14:41:37: Copiar Sobre 'D:/SCRIPTS_ORACLE/ajax_stream.php' -> '//NETBOOK/SCRIPTS_ORACLE/ajax_stream.php'
+2015-10-02 14:41:38: Copiar Sobre 'D:/SCRIPTS_ORACLE/compara_bases.php' -> '//NETBOOK/SCRIPTS_ORACLE/compara_bases.php'
+2015-10-02 14:41:38: Copiar Sobre 'D:/SCRIPTS_ORACLE/DDL_NUCLEO/user_consulta.sql' -> '//NETBOOK/SCRIPTS_ORACLE/DDL_NUCLEO/user_consulta.sql'
+2015-10-02 14:41:38: Copiar Novo 'D:/SCRIPTS_ORACLE/img/nucleo.gif' -> '//NETBOOK/SCRIPTS_ORACLE/img/nucleo.gif'
+2015-10-02 14:41:39: Copiar Sobre 'D:/SCRIPTS_ORACLE/inc/banco_pdo_class.php' -> '//NETBOOK/SCRIPTS_ORACLE/inc/banco_pdo_class.php'
+2015-10-02 14:41:39: Copiar Sobre 'D:/SCRIPTS_ORACLE/inc/parametro.sqlite' -> '//NETBOOK/SCRIPTS_ORACLE/inc/parametro.sqlite'
+2015-10-02 14:41:39: Copiar Novo 'D:/SCRIPTS_ORACLE/index_new.php' -> '//NETBOOK/SCRIPTS_ORACLE/index_new.php'
+2015-10-02 14:41:39: Copiar Sobre 'D:/SCRIPTS_ORACLE/load_dados_direto.php' -> '//NETBOOK/SCRIPTS_ORACLE/load_dados_direto.php'
+2015-10-02 14:41:39: Copiar Sobre 'D:/SCRIPTS_ORACLE/load_dados_direto_fb_ora.php' -> '//NETBOOK/SCRIPTS_ORACLE/load_dados_direto_fb_ora.php'
+2015-10-02 14:41:39: Copiar Sobre 'D:/SCRIPTS_ORACLE/load_dados_direto_fb_sql.php' -> '//NETBOOK/SCRIPTS_ORACLE/load_dados_direto_fb_sql.php'
+2015-10-02 14:41:40: Copiar Sobre 'D:/SCRIPTS_ORACLE/load_dados_falta_firebird.php' -> '//NETBOOK/SCRIPTS_ORACLE/load_dados_falta_firebird.php'
+2015-10-02 14:41:40: Copiar Sobre 'D:/SCRIPTS_ORACLE/nucleo.sublime-workspace' -> '//NETBOOK/SCRIPTS_ORACLE/nucleo.sublime-workspace'
+2015-10-02 14:41:42: Copiar Novo 'D:/SCRIPTS_ORACLE/scripts/Resolpec.sql' -> '//NETBOOK/SCRIPTS_ORACLE/scripts/Resolpec.sql'
+2015-10-02 14:41:42: Copiar Sobre 'D:/SCRIPTS_ORACLE/SQL_INSERT/final.sql' -> '//NETBOOK/SCRIPTS_ORACLE/SQL_INSERT/final.sql'
+2015-10-02 14:41:42: Copiar Sobre 'D:/SCRIPTS_ORACLE/SQL_INSERT/geral.sql' -> '//NETBOOK/SCRIPTS_ORACLE/SQL_INSERT/geral.sql'
+2015-10-02 14:41:43: Copiar Novo 'D:/SCRIPTS_ORACLE/SQL_INSERT/MOVTO_FINANCEIRO_BANCO.log' -> '//NETBOOK/SCRIPTS_ORACLE/SQL_INSERT/MOVTO_FINANCEIRO_BANCO.log'
+2015-10-02 14:41:43: Copiar Sobre 'D:/SCRIPTS_ORACLE/Web.sublime-workspace' -> '//NETBOOK/SCRIPTS_ORACLE/Web.sublime-workspace'
+2015-10-02 14:41:43: ===== Sincronia Completada. Tempo: 00:00:09, Velocidade: 340 KB/s =====, Itens Sincronizados OK: 2.881, Erros: 0
+2015-10-02 14:41:43: 

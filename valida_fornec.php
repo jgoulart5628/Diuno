@@ -1,0 +1,170 @@
+<?php
+Header("Cache-control: private, no-cache");
+Header("Expires: Mon, 26 Jun 1997 05:00:00 GMT");
+// $header = Header("Pragma: no-cache");
+error_reporting(E_ALL & ~(E_NOTICE | E_DEPRECATED | E_STRICT | E_WARNING));
+//  error_reporting(E_ALL);
+ini_set('date.timezone', 'America/Sao_Paulo');
+ini_set("memory_limit",-1);
+//ini_set('default_charset','ISO-8859-1');
+ini_set('display_errors', true);
+// print_r($conver);
+$banco = 'ORACLE_gicof_local';
+include("inc/banco_pdo_class.php");
+//if (isset($_GET['banco'])) {
+$db = new banco_dados($banco);
+$query = " alter session  set current_schema=globalgov_pess_dev ";
+$db->banco_query($query, 'sql');
+?>
+<!DOCTYPE html>
+<html class=no-js>
+ <meta charset=utf-8>
+ <head>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title> Projeto Migração </title>
+</head>
+<body>
+   <?php 
+     $tela = '<table><tr><th>CPF/CNPJ</th><th>Tipo</th><th>Endereço</th><th>Cidade</th><th>Cep</th>
+       <th>Validade Código</th></tr>';
+     $query = " select * from fornec where rownum < 20 "; 
+     // NR_CPF_CGC = '17393547000105' "; 
+     //rownum < 20 ";
+     // NR_CPF_CGC = '17156514000133' ";
+     //a where a.nr_cpf_cgc not in (select cnpj from pes_pessoa_juridica b) ";
+     $pes = $db->banco_query($query, 'array');
+     for ($a = 0; $a < count($pes); $a++)   {
+        $pes_tipo;
+        $val = '';
+        $status = '';
+        $msg = '';
+        $NR_CPF_CGC      = $pes[$a]['NR_CPF_CGC'];
+        $TP_FAVORECIDO_D = $pes[$a]['TP_FAVORECIDO_D'];
+        if ($TP_FAVORECIDO_D == '2') {
+            $pes_tipo = 'J'; 
+            $cnpj = str_pad($NR_CPF_CGC,14, "0", STR_PAD_LEFT);
+            $saida  = validaCNPJ($cnpj);
+            if (!$saida) { $msg = 'Deu pobrema '; } else {
+            $status   = $saida['status'];
+            $msg      = $saida['message'];
+            }
+            $val .= $status.' - '.$msg;
+//            $msg = print_r($saida);
+          } else { 
+             $pes_tipo = 'F';
+             $cpf = str_pad($NR_CPF_CGC,11, "0", STR_PAD_LEFT);
+             $val_cpf = validaCPF($cpf);
+             if ($val_cpf) {
+                 $status = 'OK'; 
+                 $val .= $status.' - Número cpf válido.'; }
+             else { $status =  'ERRO';
+                    $val .= $status.' - Número cpf inválido.'; }
+        }
+        $NM_FAVORECIDO   = str_replace("&","e", $pes[$a]['NM_FAVORECIDO']);
+        $TX_ENDERECO     = $pes[$a]['TX_ENDERECO'];
+        $NR_TELEFONE     = $pes[$a]['NR_TELEFONE'];
+        $TX_CIDADE       = $pes[$a]['TX_CIDADE'];
+        if (!$TX_CIDADE) { $val .= ' Cidade Inválida.'; }
+        $NR_BANCO        = $pes[$a]['NR_BANCO'];
+        $NR_AGENCIA      = $pes[$a]['NR_AGENCIA'];
+        $SG_UF           = $pes[$a]['SG_UF'];
+        $NR_CTA_CORRENTE = $pes[$a]['NR_CTA_CORRENTE'];
+        $NR_CEP          = $pes[$a]['NR_CEP'];
+        $cep = str_pad($NR_CEP,8, "0", STR_PAD_LEFT);
+        if (!$cep > 0) { $val .= ' CEP Zerado.'; }
+        $NR_INSCR_MUNICIPAL = $pes[$a]['NR_INSCR_MUNICIPAL'];
+        $NR_INSC_ESTADUAL  = $pes[$a]['NR_INSC_ESTADUAL'];
+        $TP_RAMO_ATIV_D     = $pes[$a]['TP_RAMO_ATIV_D'];
+        $IN_SUSPENSAO_D     = $pes[$a]['IN_SUSPENSAO_D'];
+        $UG_CD_UG_SUSPEN    = $pes[$a]['UG_CD_UG_SUSPEN'];
+        $IN_COLETIVO_D      = $pes[$a]['IN_COLETIVO_D'];
+        $IN_EVENTUAL_D      = $pes[$a]['IN_EVENTUAL_D'];
+        $ST_ATIVO           = $pes[$a]['ST_ATIVO'];
+        $DT_DESATIVACAO     = $pes[$a]['DT_DESATIVACAO'];
+        $NR_AGENCIA_DIR     = $pes[$a]['NR_AGENCIA_DIR'];
+        $NR_BANCO_DIR       = $pes[$a]['NR_BANCO_DIR'];
+        $NR_CTA_CORRENTE_DIR = $pes[$a]['NR_CTA_CORRENTE_DIR'];
+        $CD_ORIGEM         = $pes[$a]['CD_ORIGEM'];
+        $TP_NAT_JURIDICA   = $pes[$a]['TP_NAT_JURIDICA'];
+        $FL_ZONAFRANCASOCIAL = $pes[$a]['FL_ZONAFRANCASOCIAL'];
+        $tela .= '<tr><td>'.$NR_CPF_CGC.'</td>
+                   <td>'.$pes_tipo.'</td>
+                   <td>'.$TX_ENDERECO.'</td>
+                   <td>'.$TX_CIDADE.'</td>
+                   <td>'.$NR_CEP.'</td>
+                   <td>'.$val.'</td>
+        </tr>';
+       } 
+     $tela .= '</table>';  
+    echo $tela;
+    sleep(3);
+    ?>
+</body>
+</html>
+<?php
+ function validaCNPJ($cnpj)  {
+       if ($cnpj > 0)  {
+          $retorna = shell_exec('curl -X GET https://www.receitaws.com.br/v1/cnpj/'.$cnpj);
+          $saida    = object_to_array(json_decode($retorna));
+          return $saida;
+//          if ($status == 'ERROR') {  return $msg; } else { return $status; }
+       }  else {  return false; } 
+}
+
+
+function validaCPF($cpf='') {
+
+  // Verifica se um número foi informado
+  if(empty($cpf)) {
+    return false;
+  }
+
+  // Elimina possivel mascara
+  $cpf = preg_replace("/[^0-9]/", "", $cpf);
+  $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+  
+  // Verifica se o numero de digitos informados é igual a 11 
+  if (strlen($cpf) != 11) {
+    return false;
+  }
+  // Verifica se nenhuma das sequências invalidas abaixo 
+  // foi digitada. Caso afirmativo, retorna falso
+  else if ($cpf == '00000000000' || 
+    $cpf == '11111111111' || 
+    $cpf == '22222222222' || 
+    $cpf == '33333333333' || 
+    $cpf == '44444444444' || 
+    $cpf == '55555555555' || 
+    $cpf == '66666666666' || 
+    $cpf == '77777777777' || 
+    $cpf == '88888888888' || 
+    $cpf == '99999999999') {
+    return false;
+   // Calcula os digitos verificadores para verificar se o
+   // CPF é válido
+   } else {   
+    
+    for ($t = 9; $t < 11; $t++) {
+      
+      for ($d = 0, $c = 0; $c < $t; $c++) {
+        $d += $cpf{$c} * (($t + 1) - $c);
+      }
+      $d = ((10 * $d) % 11) % 10;
+      if ($cpf{$c} != $d) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+}
+function object_to_array($object) {
+ if (is_object($object)) {
+  return array_map(__FUNCTION__, get_object_vars($object));
+   } else if (is_array($object)) {
+    return array_map(__FUNCTION__, $object);
+    } else {
+    return $object;
+  }
+ }

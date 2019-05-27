@@ -1,0 +1,20 @@
+Situações observadas na fonte de dados obtidas da tabela FORNEC,  gerado por arquivo texto usando separador ';':
+- Na origem, os números de CNPJ ou CPF provém da mesma coluna, sendo identificados por uma flag, se Pessoa física ou Jurídica. (Obs: a tabela FORNEC possui 97.375 Registros, enquanto o TXT possuia 97.383,
+a carga da tabela PES_PESSOA no GICOF_DESENV resultou em 97342. a diferença refere-se a erros irrecuperáveis)
+  Os números foram transferidos como estão, sem validação cadastral com Fazenda Estadual/Federal.
+64022 - PJ, 33.353 PF;
+
+- Os nomes dos Fornecedores precisaram de algum tratamento, notadamente a existência de caracteres como '&' bastante usado, apóstrofes, e outros, mas razoavelmente simples de resolver.
+
+-- A parte de endereços representou a maior dificuldade.
+  Exemplos: Em 11.312 registros, o número do CEP estava zeros. Entre estes em 3.034 registros, a coluna Cidade, estava nula.
+   Nos endereços, concentrou-se a maior parte dos erros, devido a grafias sem padrão quanto a nomenclatura, por exemplo Rua, poderia estar como R. R. sem espaço entre o nome, AVENIDA, AVN, AV; RODOVIA, RD. ROD e assim por diante, impossibilitando a separação dos dados no formato, tipo logradouro, nome logradouro, numero do imóvel, bairro e por fim município.
+ Na grafia da coluna Cidade, também apresentou situações diferente, tentamos validar o nome da cidade com a tabela de municípios importada do IBGE, existem exceções interessantes, por exemplo: No cadastro de Municípios existe Embú-Açu, enquanto na origem dos dados está grafado 'EMBU ACU', sem traço separador ou acentuação.
+
+Na tarefa de migrar estes dados, as dificuldades  maiores são decisões que não podem ser tomadas pelo programador somente. Esta realmente foi a maior dificuldade que enfrentei: A falta de um interlocutor com tempo para responder às questões.
+
+Resumo: Da tabela FORNEC, geramos dados para as seguintes tabelas:
+          PES_PESSOA, PES_PESSOA_FISICA, PES_PESSOA_JURIDICA,
+         PES_LOGRADOURO, PES_ENDERECO, PES_FORNECEDOR,
+         PES_MUNICIPIO ( alimentada por arquivo IBGE).
+

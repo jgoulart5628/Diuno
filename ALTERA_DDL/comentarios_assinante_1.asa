@@ -1,0 +1,1 @@
+alter table comentarios_assinante add tipo_cliente varchar(1) not null;

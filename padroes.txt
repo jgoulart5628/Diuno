@@ -1,0 +1,7 @@
+﻿Concatenar Strings: CONCAT(string 1, string 2);
+Retornar Substring: SUBSTRING(string, inicio, largura);
+Tamanho String: LENGTH(TRIM(string));
+Primeiros caracteres: LEFT(TRIM(string), largura);
+Ultimos caracteres: RIGHT(TRIM(string), largura);
+Buscar data: TODAY();
+Buscar data hora: NOW();

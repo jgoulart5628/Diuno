@@ -1,0 +1,221 @@
+<?php
+   ini_set('display_errors', true);
+   ini_set('date.timezone', 'America/Sao_Paulo');
+
+  /*
+// CREATE TABLE "ERRO_SQL" 
+        ("key" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ,
+		 "data" DATETIME,
+ 		 "erro" INTEGER, 
+		 "msg" VARCHAR,
+		 "sql" VARCHAR);
+    /**  
+    * @classe    banco_dados  
+    * @descr     Classe de acesso ao banco de dados via PDO  
+    * @autor     Joao Goulart 
+    * @email     goulart.joao@gmail.com
+    * @data      Agosto/2014 
+    * @copyright (c) 2014 by Joao Goulart
+    */ 
+ class banco_dados {
+        //parâmetros de conexão 
+        var $cfg;
+        var $db; 
+        var $dbhost; 
+        var $dbuser; 
+        var $dbpasswd;
+         
+        //handle da conexão 
+        var $conn; 
+
+        //variaveos ODBC 
+        var $dsn; 
+        var $driver;
+        var $log_erros;
+        var $log_trans;
+        var $uid;
+        var $pwd; 
+        //resultado das Queries 
+        var $sql; 
+        var $arr; 
+        var $banco;
+		    var $cliente;
+		    var $tipo;
+		    var $options;
+		    var $erro;
+        var $info;
+   // construtor da classe     
+   function __construct($banco) {
+ 	    $bb = explode('_', $banco);
+      $this->tipo    = $bb[0];
+      $this->cliente = $bb[1];
+      if (count($bb) > 2) { $this->cliente = $bb[1].'_'.$bb[2]; }
+      $this->cfg = $this->busca_param($this->tipo, $this->cliente);
+      if(!is_array($this->cfg)) {  return 'Erro nos Parâmetros de Conexão, verifique! '.$this->cliente.'-'.$this->tipo;  }
+      $this->dsn        = trim($this->cfg['dsn']);
+      $this->dbhost     = trim($this->cfg['host']);
+      $this->dbpasswd   = trim($this->cfg['pwd']);
+      $this->dbuser     = trim($this->cfg['user']);
+      $this->db         = trim($this->cfg['dbname']);
+      $this->driver     = trim($this->cfg['driver']);
+      $this->log_erros  = trim($this->cfg['log_erros']);
+      $this->log_trans  = trim($this->cfg['log_trans']);
+
+  	  $this->options = array(PDO::NULL_NATURAL => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true);
+      try {
+		switch ($this->tipo)   {	
+		  case 	'ORACLE':
+             $dns = "oci:dbname=$this->dbhost";
+             $this->conn = new PDO("oci:dbname=$this->db",$this->dbuser,$this->dbpasswd , $this->options);
+             break;
+          case  'ODBC':  
+ //            $dns = "odbc:Driver=".$this->driver.";Dsn=".$this->dsn.";uid=".$this->dbuser.";PWD=".$this->dbpasswd; 
+             $dns = "odbc:Dsn=".$this->dsn.";uid=".$this->dbuser.";PWD=".$this->dbpasswd; 
+             $this->conn = new PDO($dns); 
+             break;
+          case  'SYBASE':  
+//             $dns = "odbc:Driver=".$this->driver.";Dsn=".$this->dsn.";uid=".$this->dbuser.";PWD=".$this->dbpasswd; 
+//             $dns = "odbc:Dsn=".$this->dsn.";uid=".$this->dbuser.";PWD=".$this->dbpasswd; 
+//             $dns = "dblib:host=FOSCA;dbname=FOSCA";
+//               $this->conn = new PDO("sqlanywhere:host=casa;dbname=Fosca; uid=dba; pwd=sql");
+               $this->conn = new PDO("sqlanywhere:Dsn=Foscarini; uid=dba; pwd=sql ");
+//             $this->conn = new PDO($dns); 
+             break;
+          case  'SQLSERVER':   
+             $dns = "odbc:Dsn=".$this->dsn.";uid=".$this->dbuser.";PWD=".$this->dbpasswd; 
+              $this->conn = new PDO($dns);
+//              $this->conn = new PDO("sqlsrv:server=$this->dbhost;database=$this->db;", $this->dbuser, $this->dbpasswd);
+              break;
+    		  case  'POSTGRESQL': 
+//             $this->conn = new PDO("pgsql:host=nuc-04;port=5432;dbname=familia;user=joao;password=jogola01", $this->options);
+             $this->conn = new PDO("pgsql:host=$this->dbhost;port=5432;dbname=$this->db;user=$this->dbuser;password=$this->dbpasswd");
+             break;
+          case   'MYSQL':
+             $this->options =  array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
+             $this->conn = new PDO("mysql:host=$this->dbhost;dbname=$this->db", $this->dbuser, $this->dbpasswd , $this->options);
+             break;
+          case  'FIREBIRD':  
+      	     $dns = "firebird:dbname=$this->db"; 
+    		 $this->conn = new PDO("firebird:dbname=$this->db; charset=ISO8859_1;", $this->dbuser, $this->dbpasswd ) ; 
+             // charset=ISO8859_1  
+       		 break;
+       	  case 	'SQLITE': 
+             $this->conn = new PDO("sqlite:".$this->db );
+             break;
+	    }	    
+       }   catch(Exception $e) {  $er = $e->getMessage();  $info = $e->getTrace(); return $this->erro_sql($er, $banco, $info);   }
+       
+   }   
+  
+
+   public function busca_param($tp, $cli)  {
+     $cc = __DIR__.'/parametro.sqlite';  
+     $lite =  new PDO('sqlite:'.$cc);
+     $sq   = " select dsn, host, dbname, user, pwd, driver, log_erros, log_trans from empresa_banco where id = '$cli' and dbms = '$tp' ";      
+     $sqx = $lite->query($sq);
+     $res = $sqx->fetch(PDO::FETCH_ASSOC);
+     return $res;   	
+  }
+
+
+  function banco_query($query, $mode='sql',  $tela='') {
+     if(is_object($this->conn)) {
+    	 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+       $this->conn->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_NATURAL);
+         try  { 
+          $this->sql = $this->conn->query($query);
+//          $this->sql->execute();
+          }   catch(PDOException $e) {  
+                  $msg  = $e->getMessage();
+                  $info = $e->getCode();
+                  return $this->erro_sql($msg,  $query, $info, $tela); 
+              }
+         switch ($mode)   { 
+          case "sql"     :  if($this->log_trans) { $this->Grava_Trans($query); }  return 1; 
+          case "array"   :  $arr  = $this->sql->fetchAll(PDO::FETCH_ASSOC);  break;  
+//          case "array"   :  $arr  = $sql->fetchAll();  break;  
+          case "single"  :  $arr  = $this->sql->fetch(PDO::FETCH_ASSOC); break; 
+          case "nrows"   :  $arr  = $this->sql->rowCount(); break;  
+          case "unico"   :  $arr  = $this->sql->fetchColumn();  break;
+        }     
+        $this->arr = $arr; 
+        return $this->arr;
+    } else {  return 'Erro nos Parâmetros de Conexão, verifique! '.$info; }
+ }
+
+
+public function Grava_Trans($sql) {
+    $timestamp = time(); 
+    $hora = date("G:i:s", $timestamp);
+    $data = date("Ymd",  $timestamp);
+    $arq = realpath('log_trans/').'\\log_'.$data.'.txt';
+    error_reporting(E_ALL & ~(E_NOTICE | E_DEPRECATED | E_STRICT | E_WARNING));
+    if (file_exists($arq)) {
+       $fs = @fopen($arq, 'a');   
+    } else {  $fs = @fopen($arq, 'w+'); }
+    //parametros do erro
+    $ori   = $_SERVER["HTTP_REFERER"];
+//    $brw   = $_SERVER["HTTP_USER_AGENT"];
+    $ip    = $_SERVER["REMOTE_ADDR"];
+    // montando o texto
+    $txt    = $hora.'|'.$ori.'|'.$ip.'|'.$sql.PHP_EOL;
+    fwrite($fs, $txt);
+    fclose($fs);
+ }
+
+
+function banco_query_blob($query, $column1, $blob_data1, $column2='' ,$blob_data2='',$tela='') {
+     if(is_object($this->conn)) {
+       $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+       $this->conn->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_NATURAL);
+        try{
+            $this->sql = $this->conn->prepare($query);
+            $this->sql->bindValue($column1, $blob_data1, PDO::PARAM_LOB);
+            if( $column2)    { $this->sql->bindValue($column2, $blob_data2, PDO::PARAM_LOB);  }
+            $this->sql->execute(); 
+        	}     catch(PDOException $e)    {  $msg = $e->getMessage();  return $this->erro_sql($msg, $query, $tela);   }
+      return 1;
+    }
+ }
+
+ public function erro_sql($msg,  $query, $info, $tela='')   {
+    if ($this->log_erros)  {  $this->Grava_Erro_SQL($msg, $query); }
+    $msg = urlencode($msg);
+    $sql = urlencode($query);
+    $arq = realpath('inc/').'\\erro.php';
+    if (is_object($tela))  {
+          $tela->script(' var myWin  = window.open("'.$arq.'?tipo=Erro de SQL.&msg='.$erro_msg.'&sql='.$erro_txt.'", "Erro.", "status = 1, height = 400, width = 500, resizable = 0, scrollbars=1" );
+                 myWin.focus(); ');
+      }  else {
+      echo( '<script>
+               var myWin  = window.open("'.$arq.'?tipo=Erro de SQL.&msg='.$erro_msg.'&sql='.$erro_txt.'", "Erro.", "status = 1, height = 400, width = 500, resizable = 0, scrollbars=1" );
+                 myWin.focus();
+                </script>');
+      } 
+      return  $info;
+     exit;
+ }
+
+public function Grava_Erro_SQL($msg, $sql) {
+    global $programa;
+    $prog = explode('.',$programa);
+    $timestamp = time(); 
+    $hora = date("G:i:s", $timestamp);
+    $data = date("Ymd",  $timestamp);
+    $arq = realpath('log_erros/').'\\erro_'.$data.'.txt';
+    ini_set('default_charset','iso-8859-1');
+    error_reporting(E_ALL & ~(E_NOTICE | E_DEPRECATED | E_STRICT | E_WARNING));
+    if (file_exists($arq)) {
+       $fs = @fopen($arq, 'a');   
+    } else {  $fs = @fopen($arq, 'w+'); }
+    //parametros do erro
+    $ori   = $_SERVER["HTTP_REFERER"];
+//    $brw   = $_SERVER["HTTP_USER_AGENT"];
+    $ip    = $_SERVER["REMOTE_ADDR"];
+    // montando o texto
+    $txt    = $hora.'|'.$ori.'|'.$ip.'|'.$msg.'|'.$sql.PHP_EOL;
+    fwrite($fs, $txt);
+    fclose($fs);
+ }
+
+}    

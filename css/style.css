@@ -1,0 +1,83 @@
+/*Overall rules*/
+ body{font-size: 0.8em;font-family: Arial, Helvetica, Sans-Serif;}
+ a{color: #fff;text-decoration: none;display:block;padding: 3px;}
+ a:hover{text-decoration: underline;}
+ 
+ .pad{padding: 3px;}
+ 
+ /*Set base rules for <li>*/
+ li{padding:0;margin:0;border-bottom: 1px dotted #666;}
+ 
+ /*The outer <ul> has a border, which encompasses the entire menu*/
+ ul{padding:0;margin:0;border: 1px solid #666;}
+ 
+ /*Rules for the top level of menu*/
+ ul li{margin:0;padding:0;display:block;background: #004650;} 
+ ul li a{display:block;color:#E6FEFF;}
+ ul li a:hover{background: #006685;}
+  
+ /*Stop the second level from inheriting the border*/
+ ul ul{border: none;} 
+ 
+ /*Rules for the second menu level*/
+ ul ul li{background: #563f23;}
+ ul ul li a{padding-left: 5px;color: #e0d4bb} 
+ ul ul li a:hover{background: #855723;}
+ ul ul li div.pad{color: #e0d4bb;}
+ 
+ /*Rules for the third level*/
+ ul ul ul li{background: #605a12;}
+ ul ul ul li a{color: #e2e59f;padding-left: 10px;}
+ ul ul ul li a:hover{background: #888600;}
+ ul ul li div.pad{color: #e2e59f;padding-left: 10px;} 
+ 
+ /*Rules for the fourth level*/
+ ul ul ul ul li{background: #432c5f;}
+ ul ul ul ul li a{padding-left: 15px;display:block;color:#ded8e6;}
+ ul ul ul ul li a:hover{background: #7c6495;} 
+ ul ul ul ul li div.pad{padding-left: 15px;color:#ded8e6;}
+ 
+ /*Rules for the fifth level*/
+ ul ul ul ul ul li{background: #004236;}
+ ul ul ul ul ul li a{padding-left: 15px;display:block;color:#C3F8F2;}
+ ul ul ul ul ul li a:hover{background: #006752;} 
+ ul ul ul ul ul li div.pad{padding-left: 15px;color:#C3F8F2;} 
+ 
+ /*Rules for the sixth and subsequent levels*/
+ ul ul ul ul ul ul li{background: #5f6062;}
+ ul ul ul ul ul ul li a{padding-left: 15px;display:block;color:#c5c6c8;}
+ ul ul ul ul ul ul li a:hover{background: #7e8082;} 
+ ul ul ul ul ul ul li div.pad{padding-left: 15px;color:#c5c6c8;}  
+ 
+ li.hide ul{
+    display: none;
+ }
+ li.show ul{
+    display: visible;
+ }
+ 
+ #menuRoot{
+  float:left;
+  width:25%;
+  margin-right:1em;
+ }
+ 
+ #content{
+  float:left;
+  width:50%;
+ }
+ 
+ #debug{
+  clear:left;
+ }
+
+ #about{
+  width:100%;
+  margin-top:3em;
+  float:left;
+ }
+
+ #about a{
+  display: inline;
+  font-weight: bold;
+ }

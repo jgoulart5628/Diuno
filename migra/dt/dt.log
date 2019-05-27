@@ -1,0 +1,64 @@
+
+SQL*Loader: Release 11.2.0.2.0 - Production on Dom Abr 7 09:45:20 2019
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+Arquivo de Controle:   dt.ctl
+Arquivo de Dados:      dt2.txt
+  Arquivo de Incorreções:     dt.bad
+  Arquivo de Descarte: dt.dsc 
+ (Permite 10 descartes)
+
+Número a ser carregado: ALL
+Número a ser ignorado: 0
+Erros permitidos: 50000
+Array de ligação:     64 linhas, máximo de 256000 bytes
+Continuação:    nenhum(a) foi especificado(a)
+Caminho usado:      Convencional
+
+Tabela DT, carregada a partir de cada registro lógico.
+Opção de inserção em vigor para esta tabela: APPEND
+
+   Nome da Coluna                  Posição   Tam  Term Incl Tipo de Dados
+------------------------------ ---------- ----- ---- ---- ---------------------
+DT_DESATIVACAO                      FIRST     *   ;       CHARACTER            
+    String SQL para coluna : "to_date (:dt_desativacao, 'dd/mm/rrrr hh24:mi:ss')"
+
+Registro 40: Rejeitado - Erro na tabela DT, coluna DT_DESATIVACAO.
+Coluna não localizada antes do fim do registro lógico (use TRAILING NULLCOLS)
+Registro 41: Rejeitado - Erro na tabela DT, coluna DT_DESATIVACAO.
+Coluna não localizada antes do fim do registro lógico (use TRAILING NULLCOLS)
+Registro 1: Rejeitado - Erro na tabela DT, coluna DT_DESATIVACAO.
+ORA-01858: foi localizado um caractere não numérico onde se esperava um numérico
+
+Registro 13: Rejeitado - Erro na tabela DT, coluna DT_DESATIVACAO.
+ORA-01858: foi localizado um caractere não numérico onde se esperava um numérico
+
+Registro 93: Rejeitado - Erro na tabela DT, coluna DT_DESATIVACAO.
+Coluna não localizada antes do fim do registro lógico (use TRAILING NULLCOLS)
+Registro 95: Rejeitado - Erro na tabela DT, coluna DT_DESATIVACAO.
+Coluna não localizada antes do fim do registro lógico (use TRAILING NULLCOLS)
+Registro 96: Rejeitado - Erro na tabela DT, coluna DT_DESATIVACAO.
+ORA-01861: o literal não corresponde à string de formato
+
+
+Tabela DT:
+  99 Linhas carregado com êxito.
+  7 Linhas não carregado devido a erros de dados.
+  0 Linhas não carregado porque todas as cláusulas WHEN falharam.
+  0 Linhas não carregado porque todos os campos eram nulos.
+
+
+Espaço alocado para o array de ligação:                  16512 bytes(64 linhas)
+Bytes do buffer de leitura: 1048576
+
+Total de registros lógicos ignorados:          0
+Total de registros lógicos lidos:           106
+Total de registros lógicos rejeitados:         7
+Total de registros lógicos descartados:        0
+
+A execução começou em Dom Abr 07 09:45:20 2019
+A execução foi finalizada em Dom Abr 07 09:45:20 2019
+
+O tempo decorrido foi:     00:00:00.09
+O tempo de CPU foi:         00:00:00.02

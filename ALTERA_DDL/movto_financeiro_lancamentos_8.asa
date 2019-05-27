@@ -1,0 +1,1 @@
+alter table movto_financeiro_lancamentos add valor_despesas_clientes numeric(15,6);

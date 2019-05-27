@@ -1,0 +1,5 @@
+Create table mensagem_padrao (key_msg numeric(8) default autoincrement not null,
+                              filial varchar(2) not null,
+                              observacao varchar(200) not null,
+                              primary key (key_msg),
+                              foreign key (filial) references tab_filial (codigo_filial));

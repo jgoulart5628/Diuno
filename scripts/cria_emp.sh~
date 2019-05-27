@@ -1,0 +1,2 @@
+#!/bin/bash
+sqlplus sys/jogola01@casax as sysdba @cria_emp.sql $1 $2

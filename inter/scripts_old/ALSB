@@ -1,0 +1,16 @@
+include('../inc/banco_pdo_class.php');
+$fb = new dataBase('FIREBIRD_alsb');
+$sq = new dataBase('SQLODBC_alsb');
+$query = ' SELECT arq_nfe from notaf_ent_eletronica where key_docto_base = 9  ';
+$res =  $fb->banco_query($query,'unico');
+//$key = $res['KEY_DOCTO_BASE'];
+//$chave = $res['NRO_CHAVE_NFE'];
+//$qq = " update  notaf_ent_eletronica set arq_nfe = varq_nfe where key_docto_base = 9 ";
+echo $res;
+//$query = "  DECLARE
+//                      varq_nfe varchar2(32767);
+//                        BEGIN
+//                         varq_nfe := $res;
+//                          $qq ;  END; ";  
+// $e  = $ora->banco_query($query,'sql');
+

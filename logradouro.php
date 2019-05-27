@@ -1,0 +1,164 @@
+<?php
+Header("Cache-control: private, no-cache");
+Header("Expires: Mon, 26 Jun 1997 05:00:00 GMT");
+// $header = Header("Pragma: no-cache");
+error_reporting(E_ALL & ~(E_NOTICE | E_DEPRECATED | E_STRICT | E_WARNING));
+//  error_reporting(E_ALL);
+ini_set('date.timezone', 'America/Sao_Paulo');
+ini_set("memory_limit",-1);
+ini_set('default_charset','UTF-8');
+ini_set('display_errors', true);
+$cfg = parse_ini_file("inc/imigra.ini",true);
+// print_r($conver);
+$programa = basename(__FILE__); 
+include("inc/banco_pdo_class.php");
+if (isset($_GET['banco'])) {
+  $db = new banco_dados($_GET['banco']);
+ }
+$query = " alter session set current_schema=".$_GET['schema'];
+$db->banco_query($query, 'sql');
+?>
+<!DOCTYPE html>
+<html class=no-js>
+<head>
+ <meta charset=utf-8>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
+    <!--    <meta charset="iso-8859-1" -->
+ <title> Projeto Migração </title>
+	<!--[if lt IE 9]>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+ <link rel="icon" type="image/ico" href="favicon.ico">
+ <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+ <link rel="stylesheet" type="text/css" href="css/main.css">
+  <!--[if lt IE 9]>
+   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+ <script type="text/javascript" src="js/modernizr.js"></script>
+ <link rel="stylesheet" type="text/css" href="css/nucleo.css">
+</head>
+<body>
+  <form id="tela" name="tela" class="form" method="POST">
+  <div class="container-fluid">
+     <div class="text-muted centro topo"><img src="img/nucleo.gif">
+          Projeto Diuno <small> Rotinas de Migração de Bancos de Dados. </small>
+     </div>
+     <hr>
+    <div id="tab_menu" class="centro row fundo"></div>
+    <div class="row fundo">
+      <div class="col-md-12 marketing">
+      <div id="saida" class=col-lg-12>
+            <h4>Conversão Dados </h4>
+            <p>Este programa converte os dados da tabela FORNEC parag gerar tabela PES_LOGRADOUROS      na rotina de migração de dados do GICOF</p>
+            <?php $err = logradouro();  echo $err.'-'; ?>
+       </div>
+      </div>
+    </div>
+    <div class="footer fundo rodape">
+         <span class="glyphicon glyphicon-thumbs-up"></span>&#174; Jgoulart Web
+		  	      <button class="btn btn-sm btn-warning roda" onclick="Saida('empresa_banco_new.php');  return false;">  Parametros Conexão </button>
+    </div>
+   </div>
+  </form>
+ </body>
+</html>
+
+<?php
+
+function logradouro() {
+     global $db;
+//     $pes_logra  = realpath('Scripts_Oracle/').'\\PES_LOGRADOURO.sql';
+//     $flogra     = fopen($pes_logra, "w");
+     $query = " select * from fornec ";
+     //a where a.nr_cpf_cgc not in (select cnpj from pes_pessoa_juridica b) ";
+     $x = 0;
+     $err = 0;
+     $pes = $db->banco_query($query, 'array');
+     for ($a = 0; $a < count($pes); $a++)   {
+        $NR_CPF_CGC      = $pes[$a]['NR_CPF_CGC'];
+        $TP_FAVORECIDO_D = $pes[$a]['TP_FAVORECIDO_D'];
+        $NM_FAVORECIDO   = str_replace("&","e", $pes[$a]['NM_FAVORECIDO']);
+        $TX_ENDERECO     = $pes[$a]['TX_ENDERECO'];
+        $NR_TELEFONE     = $pes[$a]['NR_TELEFONE'];
+        $TX_CIDADE       = $pes[$a]['TX_CIDADE'];
+        $NR_BANCO        = $pes[$a]['NR_BANCO'];
+        $NR_AGENCIA      = $pes[$a]['NR_AGENCIA'];
+        $SG_UF           = $pes[$a]['SG_UF'];
+        $NR_CTA_CORRENTE = $pes[$a]['NR_CTA_CORRENTE'];
+        $NR_CEP          = $pes[$a]['NR_CEP'];
+        $NR_INSCR_MUNICIPAL = $pes[$a]['NR_INSCR_MUNICIPAL'];
+        $NR_INSC_ESTADUAL  = $pes[$a]['NR_INSC_ESTADUAL'];
+        if (!$NR_INSC_ESTADUAL) { $NR_INSC_ESTADUAL = ' ';}
+        $TP_RAMO_ATIV_D     = $pes[$a]['TP_RAMO_ATIV_D'];
+        $IN_SUSPENSAO_D     = $pes[$a]['IN_SUSPENSAO_D'];
+        $UG_CD_UG_SUSPEN    = $pes[$a]['UG_CD_UG_SUSPEN'];
+        $IN_COLETIVO_D      = $pes[$a]['IN_COLETIVO_D'];
+        $IN_EVENTUAL_D      = $pes[$a]['IN_EVENTUAL_D'];
+        $ST_ATIVO           = $pes[$a]['ST_ATIVO'];
+        $DT_DESATIVACAO     = $pes[$a]['DT_DESATIVACAO'];
+        $NR_AGENCIA_DIR     = $pes[$a]['NR_AGENCIA_DIR'];
+        $NR_BANCO_DIR       = $pes[$a]['NR_BANCO_DIR'];
+        $NR_CTA_CORRENTE_DIR = $pes[$a]['NR_CTA_CORRENTE_DIR'];
+        $CD_ORIGEM         = $pes[$a]['CD_ORIGEM'];
+        $TP_NAT_JURIDICA   = $pes[$a]['TP_NAT_JURIDICA'];
+        $FL_ZONAFRANCASOCIAL = $pes[$a]['FL_ZONAFRANCASOCIAL'];
+        $query = " select id from  pes_municipio where trim(upper(convert(nm_municipio, 'SF7ASCII'))) = '$TX_CIDADE' ";
+        $id_pes_municipio  = $db->banco_query($query, 'unico');
+        if ($id_pes_municipio) {
+           $reg_logradouro     = Insere_Logradouro($TX_ENDERECO, $id_pes_municipio, '', $NR_CEP);
+           $e = $db->banco_query($reg_logradouro, 'sql');  
+           if ($e == 2) { $err++; } else  {  $x++; }
+//           fwrite($flogra, $reg_logradouro);
+        }  
+     }
+//   fwrite($flogra, $com);
+//   fclose($flogra);
+   return $err;
+}
+
+function Insere_Logradouro($rua, $id_pes_municipio, $id_pes_bairro_distrito='', $nr_cep='')  {
+    $id_pes_tipo_logradouro = '1'; //  TODO
+    $sql = " insert into pes_logradouro  (id , id_pes_municipio, id_pes_tipo_logradouro, nm_logradouro, cep_logradouro, dt_criado_em, cod_usu_criado)  
+       values((select nvl((max(a.id) + 1),1) from pes_logradouro a), $id_pes_municipio, $id_pes_tipo_logradouro, '$rua', '$nr_cep', current_timestamp, 1) ";
+//       $e = $db->banco_query($sql, 'sql', $resp);
+   return $sql;
+}
+
+
+ function monta_endereco($end)  {
+    $num    = numero($end);
+    $end1   = substr($end,0, ($num -1));
+    $resto  = substr($end, $num);
+    $fn     = strpos($resto, ' ');
+    $end2   = substr($resto, 0, $fn);
+    $bairro = substr($resto, (strlen($end2)));
+ //   $resp->alert($pes['ID'].' Rua:  '.$end1.'  Numero:  '.$end2.' -  Bairro:  '.$bairro.'    -    '.$pes['ENDER'].'</p>');
+     return array($end1, $end2, $bairro);
+ }
+
+ function monta_endereco_rodovia($end)  {
+    $num    = numero($end);
+    $end1   = substr($end,0, ($num -1));
+    $resto  = substr($end, $num);
+    $fn     = strpos($resto, ' ');
+    $end2   = substr($resto, 0, $fn);
+    $bairro = substr($resto, (strlen($end2)));
+ //   $resp->alert($pes['ID'].' Rua:  '.$end1.'  Numero:  '.$end2.' -  Bairro:  '.$bairro.'    -    '.$pes['ENDER'].'</p>');
+     return array($end1, $end2, $bairro);
+ }
+
+
+function numero($string) {
+$count = strlen($string);
+$i = 0;
+while( $i < $count ) {
+if( ctype_digit($string[$i]) ) {
+  return $i;
+}
+$i++;
+}
+return $i;
+}

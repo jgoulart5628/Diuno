@@ -1,0 +1,33 @@
+body { font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#111; padding:0; margin:0; text-align:left; }
+p,
+div,
+table,
+tr,
+td,
+form,
+input { padding:0; margin:0; font-weight:normal; text-decoration:none; }
+p { padding:8px 0; }
+
+/* Links */
+a { color:#B0C4DE; font-weight:bold; text-decoration:none; }
+a:active,
+a:focus { outline:0; }
+a:hover { color:#111; font-weight:bold; text-decoration:none; }
+
+/* Headings */
+h1 { padding:0; margin:0; font-weight:normal; font-family:Georgia, "Times New Roman", Times, serif; text-decoration:none; color:#33527B; font-size:32px; }
+
+/* SimpleTabs: default style */
+
+div.simpleTabs { padding:10px; background:#FFFFFF; -moz-border-radius-bottomleft:10px; -moz-border-radius-bottomright:10px; -moz-border-radius-topleft:10px; -moz-border-radius-topright:10px; }
+ul.simpleTabsNavigation { margin:0 10px; padding:0; text-align:left; }
+ul.simpleTabsNavigation li { list-style:none; display:inline; margin:0; padding:0; }
+ul.simpleTabsNavigation li a { border:1px solid #33527B; padding:3px 6px; background:#F0F0F0; font-size:14px; text-decoration:none; font-family: Georgia, Verdana, Arial; }
+ul.simpleTabsNavigation li a:hover { text-decoration:none; background-color:#F6F6F6; font-family: Georgia, Verdana, Arial ; }
+ul.simpleTabsNavigation li a.current { background:#33527B; color:#F0F0F0; border-bottom:1px solid #fff; font-size:16px; }
+div.simpleTabsContent { border:1px solid #33527B; padding:5px 15px 15px 15px; margin-top:3px; display:none; }
+div.simpleTabsContent.currentTab { display:block; }
+
+/* ----------------- Layout ----------------- */
+#container { -moz-border-radius-bottomleft:10px; -moz-border-radius-bottomright:10px; -moz-border-radius-topleft:10px; -moz-border-radius-topright:10px;
+             width:920px; margin:20px auto; padding:20px; background-color:#B0C4DE; border:1px solid #e0e0e0; }

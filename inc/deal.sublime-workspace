@@ -1,0 +1,304 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"add",
+				"addslashes"
+			],
+			[
+				"cod",
+				"codibge"
+			],
+			[
+				"fg",
+				"fgets"
+			],
+			[
+				"co",
+				"COD_USU_ALTERADO"
+			],
+			[
+				"dt",
+				"DT_ALTERADO_EM"
+			],
+			[
+				"nr",
+				"NR_VERSAO"
+			],
+			[
+				"tp",
+				"TP_PESSOA"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/xampp/htdocs/DEAL/scusia/aux_081.php",
+			"settings":
+			{
+				"buffer_size": 10734,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/xampp/htdocs/DEAL",
+		"/C/xampp/htdocs/DEAL/cadastros",
+		"/C/xampp/htdocs/DEAL/scusia"
+	],
+	"file_history":
+	[
+		"/C/xampp/htdocs/DEAL/cadastros/triger_pessoa.sql",
+		"/C/xampp/apache/logs/error.log",
+		"/C/xampp/htdocs/DEAL/scusia/xajax_error_log.log",
+		"/C/xampp/htdocs/DEAL/scusia/prc_009.php",
+		"/C/xampp/htdocs/DEAL/scusia/prd_005.php",
+		"/C/xampp/htdocs/DEAL/scusia/pss_045.php",
+		"/C/xampp/htdocs/DEAL/scusia/pss_037.php",
+		"/C/xampp/htdocs/DEAL/scusia/fin_033.php",
+		"/C/xampp/htdocs/DEAL/scusia/mvt_001.php",
+		"/C/xampp/htdocs/DEAL/php_errors.log",
+		"/C/app/dbhomeXE/network/admin/tnsnames.ora",
+		"/C/xampp/apache/conf/extra/httpd-ssl.conf",
+		"/C/xampp/htdocs/index.php",
+		"/C/xampp/htdocs/Diuno/fornecedor.php",
+		"/C/Users/joao_/Downloads/migracao/fornec/FORNECEDORES.txt",
+		"/C/Users/joao_/Downloads/migracao/fornec/fcab.sh",
+		"/C/Users/joao_/Downloads/migracao/fornec/cr_fornec.sql",
+		"/C/xampp/apache/conf/httpd.conf",
+		"/C/xampp/htdocs/Diuno/inc/imigra.ini",
+		"/C/xampp/htdocs/Diuno/municipio.php",
+		"/C/xampp/htdocs/Diuno/inc/banco_pdo_class_old.php",
+		"/C/xampp/htdocs/Diuno/inc/banco_pdo_class.phpold",
+		"/C/xampp/htdocs/Diuno/inc/banco_pdo_class.php",
+		"/C/xampp/htdocs/Diuno/inc/banco_dados.php",
+		"/C/xampp/htdocs/Diuno/parametro_class.php",
+		"/C/xampp/htdocs/Diuno/inc/banco.ini",
+		"/C/xampp/apache/conf/extra/httpd-xampp.conf",
+		"/C/xampp/htdocs/Diuno/MYSQL/config.inc.php",
+		"/C/xampp/htdocs/Diuno/inter/index.php",
+		"/C/xampp/htdocs/Diuno/Scripts_Oracle/Municipios.csv",
+		"/C/xampp/htdocs/Diuno/load_dados_csv_sybase.php",
+		"/C/xampp/htdocs/Diuno/xajax_error_log.log",
+		"/C/xampp/php/php.ini",
+		"/C/xampp/htdocs/Diuno/load_dados_insert_fb.php",
+		"/C/xampp/htdocs/Diuno/tabs_conv_class.php",
+		"/C/xampp/htdocs/Diuno/inc/erro.php",
+		"/C/xampp/htdocs/Diuno/manut_ddl_oracle.php",
+		"/C/xampp/htdocs/Diuno/gera_sql_insert_sybase.php",
+		"/C/Apache24/htdocs/Diuno/inc/banco_pdo_class.php",
+		"/C/xampp/apache/conf/extra/httpd-manual.conf",
+		"/C/xampp/apache/conf/extra/httpd-default.conf",
+		"/C/xampp/apache/conf/extra/proxy-html.conf",
+		"/C/Apache24/htdocs/Diuno/xajax_error_log.log",
+		"/C/Apache24/htdocs/Diuno/inc/erro.php",
+		"/C/Users/joao_/exportar_pes.sql",
+		"/C/instantclient_18_5/tnsnames.ora",
+		"/C/Users/joao.goulart/Desktop/exportar.tsv",
+		"/C/instantclient_18_5/exportar.sql",
+		"/C/02-Solucao/07-BancoDados/DBA/Scripts DDL/V002__SMFRJ_GICOF_PLSQL_V1.1.1.sql",
+		"/C/Users/joao.goulart/exportar.sql",
+		"/C/instantclient_18_5/CREATE TABLE EKRAMER.FORNEC.sql",
+		"/C/02-Solucao/07-BancoDados/DBA/Scripts DDL/CREATE TABLE GICOF.BAS_FORNECEDOR .sql",
+		"/C/Apache24/conf/httpd.conf",
+		"/C/Apache24/php.ini",
+		"/C/Apache24/htdocs/index,php",
+		"/C/Users/joao.goulart/FORNEC_201904170905.sql",
+		"/C/02-Solucao/07-BancoDados/MAT/Scripts DDL/V002__SMFRJ_GICOF_DDL_MAT_V1.1.sql",
+		"/C/02-Solucao/07-BancoDados/ADM/Scripts DDL/V002__SMFRJ_GICOF_DDL_ADM_V1.1.sql",
+		"/C/02-Solucao/07-BancoDados/FIN/Scripts DDL/V002__SMFRJ_GICOF_DDL_FIN_V1.1.sql",
+		"/C/02-Solucao/07-BancoDados/MAT/Scripts DDL/V005__SMFRJ_GICOF_DML_MAT_V1.1.sql",
+		"/C/02-Solucao/07-BancoDados/MAT/Scripts DDL/V004__SMFRJ_GICOF_DML_MAT_V1.1.sql",
+		"/C/02-Solucao/07-BancoDados/FIN/Scripts DDL/V007__SMFRJ_GICOF_DDL_FIN_CadastroBanco.sql"
+	],
+	"find":
+	{
+		"height": 31.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/xampp/htdocs/DEAL/scusia/aux_081.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10734,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9766,
+								9766
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4358.4,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "deal.sublime-project",
+	"replace":
+	{
+		"height": 58.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 258.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

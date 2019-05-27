@@ -1,0 +1,83 @@
+** xajax Error Log - Nov  2006 10:55:19 PM **
+** xajax Error Log - Aug 28 2010 03:03:44 PM **
+
+----
+[WARNING] include(file_doesnt_exist.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory
+Error on line 58 of file /var/www/kimaidev/tests/errorHandlingTest.php
+----
+[WARNING] include() [<a href='function.include'>function.include</a>]: Failed opening 'file_doesnt_exist.php' for inclusion (include_path='.:/usr/share/pear:/usr/share/php')
+Error on line 58 of file /var/www/kimaidev/tests/errorHandlingTest.php
+
+
+** xajax Error Log - Aug 28 2010 03:03:56 PM **
+
+----
+[WARNING] include(file_doesnt_exist.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory
+Error on line 58 of file /var/www/kimaidev/tests/errorHandlingTest.php
+----
+[WARNING] include() [<a href='function.include'>function.include</a>]: Failed opening 'file_doesnt_exist.php' for inclusion (include_path='.:/usr/share/pear:/usr/share/php')
+Error on line 58 of file /var/www/kimaidev/tests/errorHandlingTest.php
+
+
+** xajax Error Log - Aug 28 2010 07:28:18 PM **
+
+----
+[WARNING] include(file_doesnt_exist.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory
+Error on line 58 of file /var/www/kimaidev/tests/errorHandlingTest.php
+----
+[WARNING] include() [<a href='function.include'>function.include</a>]: Failed opening 'file_doesnt_exist.php' for inclusion (include_path='.:/usr/share/pear:/usr/share/php')
+Error on line 58 of file /var/www/kimaidev/tests/errorHandlingTest.php
+
+
+** xajax Error Log - Out 14 2014 12:46:42  **
+
+----
+[NOTICE] Undefined variable: silly
+Error on line 55 of file /oldlin/apache/teste/xajax6/tests/errorHandlingTest.php
+----
+[WARNING] include(file_doesnt_exist.php): failed to open stream: Arquivo ou diretório não encontrado
+Error on line 58 of file /oldlin/apache/teste/xajax6/tests/errorHandlingTest.php
+----
+[WARNING] include(): Failed opening 'file_doesnt_exist.php' for inclusion (include_path='.:/php/includes:/usr/local/lib/php:/usr/local/jpgraph')
+Error on line 58 of file /oldlin/apache/teste/xajax6/tests/errorHandlingTest.php
+
+
+** xajax Error Log - Fev 24 2015 02:11:52  **
+
+----
+[NOTICE] Undefined variable: silly
+Error on line 55 of file /oldlin/apache/nucleo/xajax/tests/errorHandlingTest.php
+----
+[WARNING] include(file_doesnt_exist.php): failed to open stream: Arquivo ou diretório não encontrado
+Error on line 58 of file /oldlin/apache/nucleo/xajax/tests/errorHandlingTest.php
+----
+[WARNING] include(): Failed opening 'file_doesnt_exist.php' for inclusion (include_path='.:/usr/share/pear:/usr/share/php')
+Error on line 58 of file /oldlin/apache/nucleo/xajax/tests/errorHandlingTest.php
+
+
+** xajax Error Log - May 21 2019 08:43:02 PM **
+
+----
+[NOTICE] Undefined variable: silly
+Error on line 55 of file C:\xampp\htdocs\Diuno\xajax\tests\errorHandlingTest.php
+----
+[WARNING] include(file_doesnt_exist.php): failed to open stream: No such file or directory
+Error on line 58 of file C:\xampp\htdocs\Diuno\xajax\tests\errorHandlingTest.php
+----
+[WARNING] include(): Failed opening 'file_doesnt_exist.php' for inclusion (include_path='C:\xampp\php\PEAR')
+Error on line 58 of file C:\xampp\htdocs\Diuno\xajax\tests\errorHandlingTest.php
+
+
+** xajax Error Log - May 21 2019 08:44:15 PM **
+
+----
+[NOTICE] Undefined variable: silly
+Error on line 55 of file C:\xampp\htdocs\Diuno\xajax\tests\errorHandlingTest.php
+----
+[WARNING] include(file_doesnt_exist.php): failed to open stream: No such file or directory
+Error on line 58 of file C:\xampp\htdocs\Diuno\xajax\tests\errorHandlingTest.php
+----
+[WARNING] include(): Failed opening 'file_doesnt_exist.php' for inclusion (include_path='C:\xampp\php\PEAR')
+Error on line 58 of file C:\xampp\htdocs\Diuno\xajax\tests\errorHandlingTest.php
+
+

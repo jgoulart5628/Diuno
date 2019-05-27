@@ -1,0 +1,1 @@
+alter table codigo_fiscal_operacao add (entrega_futura numeric(1) default 0, cred_apuracao numeric(1) default 0) ;
