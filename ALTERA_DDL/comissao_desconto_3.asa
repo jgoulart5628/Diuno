@@ -1,3 +1,0 @@
-alter table comissao_desconto add cod_grupo varchar(10),
-                              add foreign key (cod_grupo) references produto_grupo (cod_grupo);
-

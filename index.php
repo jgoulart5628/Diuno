@@ -3,22 +3,7 @@
 regras de migração
 
 C:\2-SMFRJ-GICOF\02-Solucao\09-Migracao\Anexos\SMFRJ_GICOF_DEPARAMatrizMigracaoGICOFCadastroFinanceiro.xlsx
-document.getElementById("myBtn").disabled = true; *
- * SELECT PLAN_TABLE_OUTPUT
-  FROM TABLE(DBMS_XPLAN.DISPLAY());
-
-explain plan for
-//
-declare cursor ana is
-select 'analyze table ' || table_name || ' compute statistics '  analisa from user_tables;
-begin
-   for ana_rec in ana
-  loop
-    execute immediate ana_rec.analisa;
-  end loop;
-end;
- * Prgrama principal de navegação dos dados
- */
+*/
 Header("Cache-control: private, no-cache");
 Header("Expires: Mon, 26 Jun 1997 05:00:00 GMT");
 // $header = Header("Pragma: no-cache");
@@ -417,4 +402,20 @@ select aa.table_name as tabela, aa.constraint_name fk
             end loop;
             end; ";  
    }
-*/
+
+   document.getElementById("myBtn").disabled = true; *
+ * SELECT PLAN_TABLE_OUTPUT
+  FROM TABLE(DBMS_XPLAN.DISPLAY());
+
+explain plan for
+//
+declare cursor ana is
+select 'analyze table ' || table_name || ' compute statistics '  analisa from user_tables;
+begin
+   for ana_rec in ana
+  loop
+    execute immediate ana_rec.analisa;
+  end loop;
+end;
+ * Prgrama principal de navegação dos dados
+ */

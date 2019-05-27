@@ -3,21 +3,6 @@
 regras de migração
 
 C:\2-SMFRJ-GICOF\02-Solucao\09-Migracao\Anexos\SMFRJ_GICOF_DEPARAMatrizMigracaoGICOFCadastroFinanceiro.xlsx
-document.getElementById("myBtn").disabled = true; *
- * SELECT PLAN_TABLE_OUTPUT
-FROM TABLE(DBMS_XPLAN.DISPLAY());
-
-explain plan for
-//
-declare cursor ana is
-select 'analyze table ' || table_name || ' compute statistics '  analisa from user_tables;
-begin
-for ana_rec in ana
-loop
-execute immediate ana_rec.analisa;
-end loop;
-end;
- * Prgrama principal de navegação dos dados
  */
 Header("Cache-control: private, no-cache");
 Header("Expires: Mon, 26 Jun 1997 05:00:00 GMT");
@@ -313,7 +298,7 @@ function Validar($dados) {
 		$linhas = 0;
 		$fh     = fopen($origem, "r");
 		while (!feof($fh)) {
-			$line = fgets($fh);
+			//        $line = fgets($fh);
 			$linhas++;
 		}
 		fclose($fh);
@@ -356,13 +341,13 @@ function Executa_Conv($desti, $banco, $origem, $saida, $a) {
 	//    $programa = $desti;
 	//    $resp->alert(print_r($GLOBALS,true));
 	return $resp;
-	$result = serialize($resul);
+	//    $result = serialize($resul);
 	$resp->assign("erro_$a", "innerHTML", '');
 	$resp->assign("erro_$a", "innerHTML", $tela);
 	//    $script = "xajax_$destix('$banco', '$result','$saida');";
 	$resp->script("ajax_stream('$destix','$banco','$origem','$saida', '$a');");
 
-	$resp->script($script);
+	//    $resp->script($script);
 	return $resp;
 }
 
@@ -428,4 +413,20 @@ end loop;
 end;
 ";
 }
+
+document.getElementById("myBtn").disabled = true; *
+ * SELECT PLAN_TABLE_OUTPUT
+FROM TABLE(DBMS_XPLAN.DISPLAY());
+
+explain plan for
+//
+declare cursor ana is
+select 'analyze table ' || table_name || ' compute statistics '  analisa from user_tables;
+begin
+for ana_rec in ana
+loop
+execute immediate ana_rec.analisa;
+end loop;
+end;
+ * Prgrama principal de navegação dos dados
  */
